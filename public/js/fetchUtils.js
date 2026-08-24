@@ -1,3 +1,5 @@
+import {calculateResistance} from "./extraUtils.js"
+
     const pokemoncontainer = document.getElementById("pokemon-container");
     const abilities = document.getElementById("pokemon-abilities-container");
     const type = document.getElementById("pokemon-type-container");
@@ -27,8 +29,10 @@ export function createTypes(pokemon){
     createpokemonTypes.textContent = typeFetch.type.name.toUpperCase();
     createpokemonTypes.classList.add("pokemon-type");
     createpokemonTypes.classList.add(typeFetch.type.name);
-    type.append(createpokemonTypes);
+    type.append(createpokemonTypes);   
 });
+
+    const resistances = calculateResistance(pokemon);
 }
 
 export function createAbilities(pokemon){
@@ -134,6 +138,10 @@ export function createSprite(pokemon){
 
 export function createStats(pokemon){
     statistics.innerHTML = "";
+    const label = document.createElement("h3");
+    label.textContent = "STATS: ";
+    label.className = "h3";
+    statistics.append(label);
     let BST = 0;
     for(const stats of pokemon.stats){
         BST+=stats.base_stat;
@@ -152,3 +160,4 @@ export function createStats(pokemon){
         base_stat_total.className = "base_stat_total";
         statistics.append(base_stat_total);
 }
+

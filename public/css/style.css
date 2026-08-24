@@ -353,6 +353,13 @@ body {
     text-align: center;
 }
 
+#pokemon-stats-container h3 {
+    grid-column: 1 / -1;
+
+    margin: 0 0 5px 0;
+    text-align: center;
+}
+
 
 /* =========================
    CRIES
