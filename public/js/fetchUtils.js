@@ -22,7 +22,7 @@ pokemonNameLbl.textContent = pokemon.name.toUpperCase();
 pokemoninfo.append(pokemonNameLbl,pokedexEntry);
 }
 
-export function createTypes(pokemon){
+export async function createTypes(pokemon){
     type.innerHTML = "";
     pokemon.types.forEach(typeFetch => {
     const createpokemonTypes = document.createElement("label");
@@ -32,7 +32,10 @@ export function createTypes(pokemon){
     type.append(createpokemonTypes);   
 });
 
-    const resistances = calculateResistance(pokemon);
+    const resistances = await calculateResistance(pokemon);
+    for (const matchups of Object.entries(resistances)) {
+        console.log(matchups);
+    }
 }
 
 export function createAbilities(pokemon){
