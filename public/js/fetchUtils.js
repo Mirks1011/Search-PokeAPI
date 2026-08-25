@@ -2,7 +2,12 @@ import {calculateResistance} from "./extraUtils.js"
 
     const pokemoncontainer = document.getElementById("pokemon-container");
     const abilities = document.getElementById("pokemon-abilities-container");
-    const type = document.getElementById("pokemon-type-container");
+
+    const type = document.getElementById("pokemon-types");
+    const typeweak = document.getElementById("pokemon-type-weak");
+    const typeres = document.getElementById("pokemon-type-res");
+    const typeimmune = document.getElementById("pokemon-type-immune");
+
     const statistics = document.getElementById("pokemon-stats-container");
     const sprite = document.getElementById("pokemon-sprite");
     const cry = document.getElementById("pokemon-cry-container");
@@ -22,17 +27,47 @@ pokemonNameLbl.textContent = pokemon.name.toUpperCase();
 pokemoninfo.append(pokemonNameLbl,pokedexEntry);
 }
 
-export function createTypes(pokemon){
-    type.innerHTML = "";
+export async function createTypes(pokemon){
+type.innerHTML = "";
+
+typeweak.innerHTML = "";
+typeres.innerHTML = "";
+typeimmune.innerHTML = "";
+
     pokemon.types.forEach(typeFetch => {
     const createpokemonTypes = document.createElement("label");
     createpokemonTypes.textContent = typeFetch.type.name.toUpperCase();
     createpokemonTypes.classList.add("pokemon-type");
     createpokemonTypes.classList.add(typeFetch.type.name);
     type.append(createpokemonTypes);   
-});
+    });
 
-    const resistances = calculateResistance(pokemon);
+    const resistances = await calculateResistance(pokemon);
+
+    for (const matchups of Object.entries(resistances)) {
+    if (matchups[1] === 0) {
+        const immune = document.createElement("label");
+        immune.textContent = matchups[0].toUpperCase() + " x"+matchups[1];
+        immune.classList.add("pokemon-type");
+        immune.classList.add(matchups[0]);
+        typeimmune.append(immune);
+
+    } else if (matchups[1] <= 0.5) {
+        const resistant = document.createElement("label");
+        resistant.textContent = matchups[0].toUpperCase()+ " x"+matchups[1];
+        resistant.classList.add("pokemon-type");
+        resistant.classList.add(matchups[0]);
+        typeres.append(resistant);
+
+    } else if (matchups[1] >= 2) {
+        const weak = document.createElement("label");
+        weak.textContent = matchups[0].toUpperCase()+ " x"+matchups[1];
+        weak.classList.add("pokemon-type");
+        weak.classList.add(matchups[0]);
+        typeweak.append(weak);
+    }
+}
+
 }
 
 export function createAbilities(pokemon){

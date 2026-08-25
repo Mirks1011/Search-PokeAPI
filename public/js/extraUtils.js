@@ -1,5 +1,5 @@
-const multipliers ={};
 export async function calculateResistance(pokemon){
+    const values = {};
     try {
     for(const type of pokemon.types){
         //REMEMBER TO USE ANOTHER ASYNC/AWAIT IF ACCESSING URLs
@@ -10,28 +10,24 @@ export async function calculateResistance(pokemon){
 
         const data = await response.json();
         //GET THE FREAKING WEAKNESS TURNS OUT NO CALCULATION INVOLVED // I WAS WRONG, I NEED TO CALCULATE THE 2 TYPES
+        const relations = {double_damage_from:2, half_damage_from:0.5, no_damage_from:0};
 
-        for (const weak of data.damage_relations.double_damage_from) {
-            console.log("WEAKNESS: ");
-            console.log(weak);
-            multipliers[weak.name] = 2;
+        for (const relasyon of Object.keys(relations)) {
+            const multipliers = relations[relasyon];
+            const types = data.damage_relations[relasyon];
+
+            for (const names of types) {
+
+                if(names.name in values){
+                    values[names.name] = values[names.name]* multipliers;
+                }
+                else{
+                  values[names.name] = multipliers;
+                }
+            }     
         }
-
-        for(const half of data.damage_relations.half_damage_from){
-            console.log("HALF: ");
-            console.log(half);
-            multipliers[half.name] = 0.5;
-        }
-
-        for(const res of data.damage_relations.no_damage_from){
-            console.log("IMMUNITY: ");
-            console.log(res);
-            multipliers[res.name] = 0;
-        }
-
-
-        console.log(multipliers);
     }
+        return values;
     } catch (error) {
         console.log(error);
     }
