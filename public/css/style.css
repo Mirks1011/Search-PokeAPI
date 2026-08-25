@@ -201,26 +201,93 @@ body {
 }
 
 /* =========================
-   POKEMON TYPES
+   POKEMON TYPE / MATCHUPS
    ========================= */
 
 #pokemon-type-container {
+    width: min(900px, 100%);
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 14px;
+
+    padding: 20px;
+
+    background: white;
+
+    border-radius: 12px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+    margin-bottom: 15px;
+}
+
+
+/* =========================
+   MATCHUP ROWS
+   ========================= */
+
+#pokemon-type-container > div {
     display: flex;
 
     align-items: center;
 
     flex-wrap: wrap;
 
-    gap: 10px;
+    gap: 8px;
+
+    min-height: 38px;
+}
+
+
+/* =========================
+   MATCHUP TITLES
+   ========================= */
+
+#pokemon-type-weak::before,
+#pokemon-type-res::before,
+#pokemon-type-immune::before {
+    display: inline-block;
+
+    width: 85px;
+
+    font-weight: bold;
+
+    font-size: 14px;
+
+    flex-shrink: 0;
 }
 
 #pokemon-type-container::before {
     content: "TYPE:";
-
     font-weight: bold;
+    font-size: 14px;
 }
 
+#pokemon-type-weak::before {
+    content: "Weak to:";
+}
+
+#pokemon-type-res::before {
+    content: "Resists:";
+}
+
+#pokemon-type-immune::before {
+    content: "Immune:";
+}
+
+
+/* =========================
+   TYPE BADGES
+   ========================= */
+
 .pokemon-type {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
     min-width: 70px;
 
     padding: 7px 16px;
@@ -230,13 +297,16 @@ body {
     color: white;
 
     font-size: 13px;
+
     font-weight: bold;
 
     text-align: center;
 }
 
 
-/* Type Colors */
+/* =========================
+   TYPE COLORS
+   ========================= */
 
 .normal {
     background: #A8A77A;
@@ -252,7 +322,6 @@ body {
 
 .electric {
     background: #F7D02C;
-
     color: #222222;
 }
 
@@ -262,7 +331,6 @@ body {
 
 .ice {
     background: #96D9D6;
-
     color: #222222;
 }
 
@@ -276,7 +344,6 @@ body {
 
 .ground {
     background: #E2BF65;
-
     color: #222222;
 }
 
@@ -310,7 +377,6 @@ body {
 
 .steel {
     background: #B7B7CE;
-
     color: #222222;
 }
 

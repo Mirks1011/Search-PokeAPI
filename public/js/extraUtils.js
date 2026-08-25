@@ -20,8 +20,6 @@ export async function calculateResistance(pokemon){
 
                 if(names.name in values){
                     values[names.name] = values[names.name]* multipliers;
-
-                    console.log(values);
                 }
                 else{
                   values[names.name] = multipliers;
@@ -29,7 +27,6 @@ export async function calculateResistance(pokemon){
             }     
         }
     }
-        console.log(values);
         return values;
     } catch (error) {
         console.log(error);
