@@ -171,28 +171,59 @@ export function createSprite(pokemon){
     });
 }
 
-export function createStats(pokemon){
+export function createStats(pokemon) {
     statistics.innerHTML = "";
+
     const label = document.createElement("h3");
-    label.textContent = "STATS: ";
+    label.textContent = "STATS:";
     label.className = "h3";
     statistics.append(label);
+
     let BST = 0;
-    for(const stats of pokemon.stats){
-        BST+=stats.base_stat;
+
+    for (const stats of pokemon.stats) {
+        BST += stats.base_stat;
+
+        const statRow = document.createElement("div");
+        statRow.className = "stat-row";
+
+        // Stat name
         const names = document.createElement("label");
-        names.textContent = stats.stat.name.toUpperCase() + ": ";
+        names.textContent = stats.stat.name.toUpperCase() + ":";
         names.className = stats.stat.name;
 
+        // Bar
+        const statBar = document.createElement("div");
+        statBar.className = "stat-bar";
+
+        const statFill = document.createElement("div");
+        statFill.className = "stat-fill";
+
+        // Width based on stat
+        const percentage = (stats.base_stat / 255) * 100;
+        statFill.style.width = `${percentage}%`;
+
+        // Color: low = red, high = green
+        const hue = (stats.base_stat / 255) * 120;
+        statFill.style.backgroundColor = `hsl(${hue}, 70%, 50%)`;
+
+        statBar.append(statFill);
+
+        // Stat value
         const base_stats = document.createElement("label");
         base_stats.textContent = stats.base_stat;
         base_stats.className = "basestats";
 
-        statistics.append(names,base_stats);
+        // NAME -> BAR -> VALUE
+        statRow.append(names, statBar, base_stats);
+
+        statistics.append(statRow);
     }
-        const base_stat_total = document.createElement("label");
-        base_stat_total.textContent = "BST: " + BST;
-        base_stat_total.className = "base_stat_total";
-        statistics.append(base_stat_total);
+
+    const base_stat_total = document.createElement("label");
+    base_stat_total.textContent = "BST: " + BST;
+    base_stat_total.className = "base_stat_total";
+
+    statistics.append(base_stat_total);
 }
 
