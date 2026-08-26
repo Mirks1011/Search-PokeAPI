@@ -1,3 +1,5 @@
+import Chart from "https://esm.sh/chart.js/auto";
+
 export async function calculateResistance(pokemon){
     const values = {};
     try {
@@ -31,5 +33,4 @@ export async function calculateResistance(pokemon){
     } catch (error) {
         console.log(error);
     }
-
 }
