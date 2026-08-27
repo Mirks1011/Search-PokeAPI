@@ -1,4 +1,4 @@
-import {calculateResistance} from "./extraUtils.js"
+import {calculateResistance,displayMovesPagination} from "./extraUtils.js"
 
     const pokemoncontainer = document.getElementById("pokemon-container");
     const abilities = document.getElementById("pokemon-abilities-container");
@@ -225,5 +225,9 @@ export function createStats(pokemon) {
     base_stat_total.className = "base_stat_total";
 
     statistics.append(base_stat_total);
+}
+
+export function createMoves(pokemon){
+    displayMovesPagination(pokemon);
 }
 

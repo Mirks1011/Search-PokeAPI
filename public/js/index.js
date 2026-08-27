@@ -1,4 +1,4 @@
-import{createName,createTypes,createAbilities,createCry,createSprite,createStats} from "./fetchUtils.js"
+import{createName,createTypes,createAbilities,createCry,createSprite,createStats,createMoves} from "./fetchUtils.js"
 import {fetchPokemon} from './fetch.js';
 
 const submit = document.getElementById("submitBtn");
@@ -13,6 +13,7 @@ submit.addEventListener("click", async ()=>{
     createCry(pokemon);
     createSprite(pokemon);
     createStats(pokemon);
+    createMoves(pokemon);
 
     }
     catch(error){

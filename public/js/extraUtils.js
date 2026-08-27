@@ -34,3 +34,23 @@ export async function calculateResistance(pokemon){
         console.log(error);
     }
 }
+
+export async function displayMovesPagination(pokemon){
+    const offset = 20;
+    const limit = 39;
+    try{
+        for(const moves of pokemon.moves.slice(offset, limit)){
+            const response = await fetch(moves.move.url);
+            if(!response.ok){
+                throw new Error("FAILED TO FETCH RESOURCE");
+            }
+            const data = await response.json();
+            console.log(data.name);
+            console.log(data.power);
+            console.log(data.accuracy);
+        }
+    }
+    catch(error){
+        console.log(error);
+    }
+}
