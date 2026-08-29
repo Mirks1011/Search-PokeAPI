@@ -228,6 +228,8 @@ export function createStats(pokemon) {
 }
 
 export function createMoves(pokemon){
-    displayMovesPagination(pokemon);
+    const offset = 0;
+    const limit = 2;
+    displayMovesPagination(pokemon,offset,limit);
 }
 

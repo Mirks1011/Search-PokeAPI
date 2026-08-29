@@ -1,5 +1,3 @@
-import Chart from "https://esm.sh/chart.js/auto";
-
 export async function calculateResistance(pokemon){
     const values = {};
     try {
@@ -35,11 +33,9 @@ export async function calculateResistance(pokemon){
     }
 }
 
-export async function displayMovesPagination(pokemon){
-    const offset = 20;
-    const limit = 39;
+export async function displayMovesPagination(pokemon,offset,limit){
     try{
-        for(const moves of pokemon.moves.slice(offset, limit)){
+        for(const moves of pokemon.moves.slice(offset,limit)){
             const response = await fetch(moves.move.url);
             if(!response.ok){
                 throw new Error("FAILED TO FETCH RESOURCE");
