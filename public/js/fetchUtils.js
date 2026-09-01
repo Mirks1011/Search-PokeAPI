@@ -11,7 +11,9 @@ import {calculateResistance,displayMovesPagination} from "./extraUtils.js"
     const statistics = document.getElementById("pokemon-stats-container");
     const sprite = document.getElementById("pokemon-sprite");
     const cry = document.getElementById("pokemon-cry-container");
+    const move = document.getElementById("pokemon-moves-container");
     const pokemoninfo = document.getElementById("pokemoninfo");
+    const versions = new Set();
 
 export function createName(pokemon){
 pokemoninfo.innerHTML = "";
@@ -228,8 +230,47 @@ export function createStats(pokemon) {
 }
 
 export function createMoves(pokemon){
+
+    const prevBtn = document.createElement("button");
+    prevBtn.name = "prevBtn";
+    prevBtn.classList.add("prevBtn");
+    const previcon = document.createElement("i");
+    previcon.classList.add("fa-solid", "fa-arrow-left");
+    prevBtn.append(previcon);
+
+    const nextBtn = document.createElement("button");
+    nextBtn.name = "nextBtn";
+    nextBtn.classList.add("nextBtn");
+    const nexticon = document.createElement("i");
+    nexticon.classList.add("fa-solid", "fa-arrow-right");
+    nextBtn.append(nexticon);
+
+    move.append(prevBtn,nextBtn);
+}
+
+export function createVersionButtons(pokemon){
     const offset = 0;
-    const limit = 2;
-    displayMovesPagination(pokemon,offset,limit);
+    const limit = 20;
+
+    for (const moves of pokemon.moves) {
+    for (const version of moves.version_group_details) {
+        versions.add(version.version_group.name);
+        }
+    }
+    for (const fetchedVer of versions) {
+        const versionLabel = document.createElement("label");
+        versionLabel.classList.add("version-option");
+
+        const versionRadio = document.createElement("input");
+        versionRadio.type = "radio";
+        versionRadio.name = "versionRadio";
+        versionRadio.value = fetchedVer;
+
+        const versionText = document.createElement("span");
+        versionText.textContent = fetchedVer.toUpperCase();
+
+        versionLabel.append(versionRadio, versionText);
+        move.append(versionLabel);
+    }
 }
 

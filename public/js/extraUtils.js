@@ -36,6 +36,9 @@ export async function calculateResistance(pokemon){
 export async function displayMovesPagination(pokemon,offset,limit){
     try{
         for(const moves of pokemon.moves.slice(offset,limit)){
+            console.log(moves.version_group_details[0].level_learned_at);
+            console.log(moves.version_group_details[0].version_group.name);
+            console.log(moves.version_group_details[0].move_learn_method.name);
             const response = await fetch(moves.move.url);
             if(!response.ok){
                 throw new Error("FAILED TO FETCH RESOURCE");
