@@ -1,4 +1,4 @@
-import {calculateResistance,displayMovesPagination} from "./extraUtils.js"
+import {calculateResistance,displayLevelUpMoves} from "./extraUtils.js"
 
     const pokemoncontainer = document.getElementById("pokemon-container");
     const abilities = document.getElementById("pokemon-abilities-container");
@@ -267,10 +267,18 @@ export function createVersionButtons(pokemon){
         versionRadio.value = fetchedVer;
 
         const versionText = document.createElement("span");
-        versionText.textContent = fetchedVer.toUpperCase();
+        versionText.textContent = fetchedVer.toUpperCase().replace("-","/");
 
         versionLabel.append(versionRadio, versionText);
         move.append(versionLabel);
     }
+    const versiona = document.querySelectorAll('input[name="versionRadio"]');
+    for(const versionz of versiona){
+        versionz.addEventListener("change", ()=>{
+        displayLevelUpMoves(pokemon,offset,limit,versions);
+    });
+    }
+    
+
 }
 

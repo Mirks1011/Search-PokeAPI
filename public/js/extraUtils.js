@@ -33,23 +33,52 @@ export async function calculateResistance(pokemon){
     }
 }
 
-export async function displayMovesPagination(pokemon,offset,limit){
-    try{
-        for(const moves of pokemon.moves.slice(offset,limit)){
-            console.log(moves.version_group_details[0].level_learned_at);
-            console.log(moves.version_group_details[0].version_group.name);
-            console.log(moves.version_group_details[0].move_learn_method.name);
-            const response = await fetch(moves.move.url);
-            if(!response.ok){
-                throw new Error("FAILED TO FETCH RESOURCE");
+export async function displayLevelUpMoves(pokemon,offset,limit,versions){
+
+    const selectedVersion = document.querySelector('input[name="versionRadio"]:checked').value;
+   const levelUpMoves = [];
+
+    try {
+
+    for (const moves of pokemon.moves) {
+
+        for (const verdet of moves.version_group_details) {
+
+            if (
+                verdet.version_group.name === selectedVersion &&
+                verdet.move_learn_method.name === "level-up"
+            ) {
+
+                levelUpMoves.push({
+                    move: moves,
+                    level: verdet.level_learned_at
+                });
+
             }
-            const data = await response.json();
-            console.log(data.name);
-            console.log(data.power);
-            console.log(data.accuracy);
         }
     }
-    catch(error){
-        console.log(error);
+
+    levelUpMoves.sort((a, b) => a.level - b.level);
+
+    for (const moveData of levelUpMoves) {
+
+        const response = await fetch(moveData.move.move.url);
+
+        if (!response.ok) {
+            throw new Error("FAILED TO FETCH RESOURCE");
+        }
+
+        const data = await response.json();
+
+        console.log("Level Learned: " + moveData.level);
+        console.log("Name: " + data.name);
+        console.log("Power: " + data.power);
+        console.log("Accuracy: " + data.accuracy);
+        console.log("PP: " + data.pp);
     }
-}
+
+        }
+        catch(error) {
+            console.log(error);
+        }
+    }
