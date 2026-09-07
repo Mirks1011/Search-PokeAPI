@@ -168,6 +168,13 @@ body {
     gap: 8px;
 }
 
+.sprite-header {
+    flex-basis: 100%;
+    text-align: center;
+    margin: 0;
+    font-size: 20px;
+}
+
 #pokemon-sprite img {
     width: 200px;
     height: 200px;
@@ -499,6 +506,13 @@ body {
     flex-wrap: wrap;
 }
 
+.cry-header {
+    flex-basis: 100%;
+    text-align: center;
+    margin: 0;
+    font-size: 20px;
+}
+
 #pokemon-cry-container label {
     font-weight: bold;
 
@@ -512,7 +526,7 @@ body {
 }
 
 /* =========================
-   MOVES
+   MOVES / GENERATIONS
    ========================= */
 
 #pokemon-moves-container {
@@ -524,19 +538,42 @@ body {
     margin-bottom: 15px;
 
     display: flex;
-    gap: 10px;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
 }
 
+
 /* =========================
-   VERSION OPTIONS
+   GENERATION HEADING
+   ========================= */
+
+.version-header {
+    flex: 0 0 100%;
+
+    text-align: center;
+    margin: 0 0 5px 0;
+
+    font-size: 20px;
+}
+
+
+/* =========================
+   GENERATION BUTTONS
    ========================= */
 
 .version-option {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
     cursor: pointer;
+
     padding: 8px 14px;
+
     border: 2px solid #ccc;
     border-radius: 8px;
+
     transition: 0.2s;
 
     font-size: 13px;
@@ -557,52 +594,74 @@ body {
     transform: translateY(-2px);
 }
 
+
 /* =========================
-   PAGINATION BUTTONS
+   LEVEL-UP MOVES
    ========================= */
 
-.prevBtn,
-.nextBtn {
-    width: 42px;
-    height: 42px;
+#pokemon-level-up-container {
+    width: min(900px, 100%);
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 
-    display: flex;
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        2fr
+        1fr
+        1fr
+        1fr
+        1fr;
+
+    gap: 10px;
+
     align-items: center;
-    justify-content: center;
-
-    padding: 0;
-    border: none;
-    border-radius: 8px;
-
-    background: #222;
-    color: white;
-
-    cursor: pointer;
-    font-size: 16px;
-
-    transition: 0.2s;
-}
-
-.prevBtn:hover,
-.nextBtn:hover {
-    background: #444;
-    transform: translateY(-2px);
-}
-
-.prevBtn:active,
-.nextBtn:active {
-    transform: scale(0.95);
-}
-
-.prevBtn {
-    margin-right: auto;
-}
-
-.nextBtn {
-    margin-left: auto;
 }
 
 
+/* Level-up heading */
+
+#pokemon-level-up-container h3 {
+    grid-column: 1 / -1;
+
+    text-align: center;
+
+    margin: 0 0 5px 0;
+
+    font-size: 20px;
+}
+
+
+/* Column headers */
+
+#pokemon-level-up-container .header {
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+}
+
+
+/* Move data */
+
+#pokemon-level-up-container .label {
+    text-align: center;
+}
+
+
+/* Move category icon */
+
+#pokemon-level-up-container .icon {
+    width: 32px;
+    height: 32px;
+
+    object-fit: contain;
+
+    display: block;
+    margin: auto;
+}
 /* =========================
    ERROR
    ========================= */

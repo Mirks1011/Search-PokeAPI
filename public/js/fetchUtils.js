@@ -1,4 +1,4 @@
-import {calculateResistance,displayLevelUpMoves,createVersionButtons} from "./extraUtils.js"
+import {calculateResistance,displayLevelUpMoves,createVersionButtons,versionGroupUrls,versionGroupings} from "./extraUtils.js"
 
     const pokemoncontainer = document.getElementById("pokemon-container");
     const abilities = document.getElementById("pokemon-abilities-container");
@@ -81,7 +81,7 @@ export function createAbilities(pokemon){
     pokemon.abilities.forEach(ability =>{
     const option = document.createElement("option");
 
-    option.textContent = ability.ability.name;  
+  option.textContent = ability.ability.name.replace(/-/g, " ").replace(/\b\w/g, char => char.toUpperCase()); 
     if(ability.is_hidden){
         option.textContent+=" (Hidden)";
     }
@@ -116,22 +116,32 @@ export function createAbilities(pokemon){
 
 export function createCry(pokemon){
     cry.innerHTML = "";
-    const label = document.createElement("label");
-    label.textContent = "Cry: ";
-    label.className = "label";
-    cry.append(label);
+    const cryHeader = document.createElement("h3");
+     cryHeader.textContent = "CRY"; 
+     cryHeader.className = "cry-header";
+     cry.append(cryHeader);
+    let firstCry = true;
+
     for (const cried in pokemon.cries) {
-            if (!pokemon.cries[cried]) {
+
+        if (!pokemon.cries[cried]) {
             continue;
         }
+
         const radio = document.createElement("input");
-        radio.type = "radio"
+        radio.type = "radio";
         radio.name = "pokemon-cry";
         radio.value = cried;
 
+        if (firstCry) {
+            radio.checked = true;
+            firstCry = false;
+        }
+
         const label = document.createElement("label");
-        label.textContent = cried;
-        cry.append(radio,label);
+        label.textContent = cried[0].toUpperCase() + cried.slice(1);
+
+        cry.append(radio, label);
     }
     const audio = document.createElement("audio");
     audio.controls = true;
@@ -149,6 +159,12 @@ export function createCry(pokemon){
 
 export function createSprite(pokemon){
     sprite.innerHTML = "";
+    const spriteHeader = document.createElement("h3");
+    spriteHeader.textContent = "SPRITES";
+    spriteHeader.className = "sprite-header";
+
+    sprite.append(spriteHeader);
+    let firstSprite = true;
     const display = document.createElement("img");
     for(const coke in pokemon.sprites){
         if(coke === "other" || coke ==="versions" || coke ==="front_shiny_female" || coke==="back_shiny_female" || coke==="back_female" || coke==="front_female"){
@@ -158,6 +174,8 @@ export function createSprite(pokemon){
         radio.type = "radio";
         radio.name = "pokemon-sprites";
         radio.value = coke;
+        radio.checked = true;
+        display.src = pokemon.sprites[coke];
 
         const label = document.createElement("label");
         label.textContent = coke;
@@ -230,24 +248,11 @@ export function createStats(pokemon) {
 }
 
 export async function createMoves(pokemon){
-    move.innerHTML ="";
-    const prevBtn = document.createElement("button");
-    prevBtn.name = "prevBtn";
-    prevBtn.classList.add("prevBtn");
-    const previcon = document.createElement("i");
-    previcon.classList.add("fa-solid", "fa-arrow-left");
-    prevBtn.append(previcon);
-
-    const nextBtn = document.createElement("button");
-    nextBtn.name = "nextBtn";
-    nextBtn.classList.add("nextBtn");
-    const nexticon = document.createElement("i");
-    nexticon.classList.add("fa-solid", "fa-arrow-right");
-    nextBtn.append(nexticon);
-
-    move.append(prevBtn,nextBtn);
+    move.innerHTML = "";
+    lvlup.innerHTML = "";
+    versionGroupUrls.clear();
+    versionGroupings.clear();
     await createVersionButtons(pokemon,move);
-
     const versiona = document.querySelectorAll('input[name="versionRadio"]');
     for(const versionz of versiona){
         
@@ -255,6 +260,7 @@ export async function createMoves(pokemon){
         displayLevelUpMoves(pokemon,lvlup);
     });
     }
+    displayLevelUpMoves(pokemon,lvlup);
 }
 
 
