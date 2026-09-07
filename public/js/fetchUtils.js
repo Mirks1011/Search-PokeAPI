@@ -1,4 +1,4 @@
-import {calculateResistance,displayLevelUpMoves} from "./extraUtils.js"
+import {calculateResistance,displayLevelUpMoves,createVersionButtons} from "./extraUtils.js"
 
     const pokemoncontainer = document.getElementById("pokemon-container");
     const abilities = document.getElementById("pokemon-abilities-container");
@@ -12,8 +12,8 @@ import {calculateResistance,displayLevelUpMoves} from "./extraUtils.js"
     const sprite = document.getElementById("pokemon-sprite");
     const cry = document.getElementById("pokemon-cry-container");
     const move = document.getElementById("pokemon-moves-container");
+    const lvlup = document.getElementById("pokemon-level-up-container");
     const pokemoninfo = document.getElementById("pokemoninfo");
-    const versions = new Set();
 
 export function createName(pokemon){
 pokemoninfo.innerHTML = "";
@@ -229,8 +229,8 @@ export function createStats(pokemon) {
     statistics.append(base_stat_total);
 }
 
-export function createMoves(pokemon){
-
+export async function createMoves(pokemon){
+    move.innerHTML ="";
     const prevBtn = document.createElement("button");
     prevBtn.name = "prevBtn";
     prevBtn.classList.add("prevBtn");
@@ -246,39 +246,16 @@ export function createMoves(pokemon){
     nextBtn.append(nexticon);
 
     move.append(prevBtn,nextBtn);
-}
+    await createVersionButtons(pokemon,move);
 
-export function createVersionButtons(pokemon){
-    const offset = 0;
-    const limit = 20;
-
-    for (const moves of pokemon.moves) {
-    for (const version of moves.version_group_details) {
-        versions.add(version.version_group.name);
-        }
-    }
-    for (const fetchedVer of versions) {
-        const versionLabel = document.createElement("label");
-        versionLabel.classList.add("version-option");
-
-        const versionRadio = document.createElement("input");
-        versionRadio.type = "radio";
-        versionRadio.name = "versionRadio";
-        versionRadio.value = fetchedVer;
-
-        const versionText = document.createElement("span");
-        versionText.textContent = fetchedVer.toUpperCase().replace("-","/");
-
-        versionLabel.append(versionRadio, versionText);
-        move.append(versionLabel);
-    }
     const versiona = document.querySelectorAll('input[name="versionRadio"]');
     for(const versionz of versiona){
-        versionz.addEventListener("change", ()=>{
-        displayLevelUpMoves(pokemon,offset,limit,versions);
+        
+        versionz.addEventListener("change", ()=>{           
+        displayLevelUpMoves(pokemon,lvlup);
     });
     }
-    
-
 }
+
+
 

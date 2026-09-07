@@ -1,3 +1,5 @@
+const versionGroupUrls = new Set();
+const versionGroupings = new Map();
 export async function calculateResistance(pokemon){
     const values = {};
     try {
@@ -33,15 +35,59 @@ export async function calculateResistance(pokemon){
     }
 }
 
-export async function displayLevelUpMoves(pokemon,offset,limit,versions){
+export async function createVersionButtons(pokemon,move){
+    versionGroupUrls.clear();
+    for (const moves of pokemon.moves) {
+        for (const version of moves.version_group_details) {
+            versionGroupUrls.add(version.version_group.url);
+        }
+    }
 
-    const selectedVersion = document.querySelector('input[name="versionRadio"]:checked').value;
+    for(const versions of versionGroupUrls){
+        try {
+            const response = await fetch(versions);
+            const data = await response.json();
+
+            if(versionGroupings.has(data.generation.name)){
+            versionGroupings.get(data.generation.name).add(data.name);
+            }
+            else{               
+            versionGroupings.set(data.generation.name, new Set());
+            }
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    console.log(versionGroupings);
+
+    for (const fetchedVer of versionGroupings.keys()) {
+        const versionLabel = document.createElement("label");
+        versionLabel.classList.add("version-option");
+
+        const versionRadio = document.createElement("input");
+        versionRadio.type = "radio";
+        versionRadio.name = "versionRadio";
+        versionRadio.value = fetchedVer;
+
+        const versionText = document.createElement("span");
+        versionText.textContent = fetchedVer.toUpperCase().replace("-","/");
+
+        versionLabel.append(versionRadio, versionText);
+        move.append(versionLabel);
+    }
+}
+
+export async function displayLevelUpMoves(pokemon,lvlup){
+lvlup.innerHTML="";
+
+const selectedVersion = document.querySelector('input[name="versionRadio"]:checked');
+console.log(selectedVersion);
    const levelUpMoves = [];
 
     try {
 
     for (const moves of pokemon.moves) {
-
         for (const verdet of moves.version_group_details) {
 
             if (
@@ -59,6 +105,32 @@ export async function displayLevelUpMoves(pokemon,offset,limit,versions){
     }
 
     levelUpMoves.sort((a, b) => a.level - b.level);
+        const lvlLearnedHead = document.createElement("h5");
+        lvlLearnedHead.classList.add("header");
+        lvlLearnedHead.textContent = "Level Learned";
+
+        const moveNameHead = document.createElement("h5");
+        moveNameHead.classList.add("header");
+        moveNameHead.textContent = "Name";
+
+        const moveTypeHead = document.createElement("h5");
+        moveTypeHead.classList.add("header");
+        moveTypeHead.textContent = "Type";
+
+        const moveCategoryHead = document.createElement("h5");
+        moveCategoryHead.classList.add("header");
+        moveCategoryHead.textContent = "Category";
+
+        const movePowerHead = document.createElement("h5");
+        movePowerHead.classList.add("header");
+        movePowerHead.textContent = "Power";
+
+        const moveAccuracyHead = document.createElement("h5");
+        moveAccuracyHead.classList.add("header");
+        moveAccuracyHead.textContent = "Accuracy";
+        lvlup.append(lvlLearnedHead,moveNameHead,moveTypeHead,moveCategoryHead,movePowerHead,moveAccuracyHead);
+
+
 
     for (const moveData of levelUpMoves) {
 
@@ -69,6 +141,10 @@ export async function displayLevelUpMoves(pokemon,offset,limit,versions){
         }
 
         const data = await response.json();
+
+        const lvlLearnedLbl = document.createElement("label");
+        lvlLearnedLbl.classList.add("levelLearned");
+        lvlLearnedLbl.textContent = moveData.level;
 
         console.log("Level Learned: " + moveData.level);
         console.log("Name: " + data.name);
