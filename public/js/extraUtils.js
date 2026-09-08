@@ -172,15 +172,15 @@ console.log(selectedVersion);
         moveCategoryIcon.classList.add("icon");
 
         if(data.damage_class.name==="physical"){
-        moveCategoryIcon.src = "/public/img/PhysicalIC_HOME.png"
+        moveCategoryIcon.src = "../img/PhysicalIC_HOME.png"
         moveCategoryIcon.alt = "Physical Icon";
         }
         if(data.damage_class.name==="special"){
-        moveCategoryIcon.src = "/public/img/SpecialIC_HOME.png"
+        moveCategoryIcon.src = "../img/SpecialIC_HOME.png"
         moveCategoryIcon.alt = "Special Icon";
         }
         if(data.damage_class.name==="status"){
-        moveCategoryIcon.src = "/public/img/StatusIC_HOME.png"
+        moveCategoryIcon.src = "../img/StatusIC_HOME.png"
         moveCategoryIcon.alt = "Status Icon";
         }
         
