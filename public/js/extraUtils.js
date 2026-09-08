@@ -92,7 +92,6 @@ lvlup.innerHTML="";
 
 const getSelectedVersion = document.querySelector('input[name="versionRadio"]:checked').value;
 const selectedVersion  = versionGroupings.get(getSelectedVersion);
-console.log(selectedVersion);
 
    const tempSet = new Set();
    const levelUpMoves = [];
@@ -107,8 +106,7 @@ console.log(selectedVersion);
                 else{
                 tempSet.add(moves.move.name);
                 levelUpMoves.push({move: moves,
-                level: verdet.level_learned_at});
-                console.log(tempSet);               
+                level: verdet.level_learned_at});            
                 }
 
 
