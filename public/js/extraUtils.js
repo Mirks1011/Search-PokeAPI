@@ -63,7 +63,6 @@ export async function createVersionButtons(pokemon,move){
             console.log(error);
         }
     }
-    console.log(versionGroupings);
 
     for (const fetchedVer of versionGroupings.keys()) {
         const versionLabel = document.createElement("label");
