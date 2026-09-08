@@ -168,6 +168,13 @@ body {
     gap: 8px;
 }
 
+.sprite-header {
+    flex-basis: 100%;
+    text-align: center;
+    margin: 0;
+    font-size: 20px;
+}
+
 #pokemon-sprite img {
     width: 200px;
     height: 200px;
@@ -499,6 +506,13 @@ body {
     flex-wrap: wrap;
 }
 
+.cry-header {
+    flex-basis: 100%;
+    text-align: center;
+    margin: 0;
+    font-size: 20px;
+}
+
 #pokemon-cry-container label {
     font-weight: bold;
 
@@ -511,7 +525,143 @@ body {
     margin-top: 10px;
 }
 
+/* =========================
+   MOVES / GENERATIONS
+   ========================= */
 
+#pokemon-moves-container {
+    width: min(900px, 100%);
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    margin-bottom: 15px;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+
+/* =========================
+   GENERATION HEADING
+   ========================= */
+
+.version-header {
+    flex: 0 0 100%;
+
+    text-align: center;
+    margin: 0 0 5px 0;
+
+    font-size: 20px;
+}
+
+
+/* =========================
+   GENERATION BUTTONS
+   ========================= */
+
+.version-option {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    padding: 8px 14px;
+
+    border: 2px solid #ccc;
+    border-radius: 8px;
+
+    transition: 0.2s;
+
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.version-option input {
+    display: none;
+}
+
+.version-option:has(input:checked) {
+    border-color: #222;
+    background: #eee;
+}
+
+.version-option:hover {
+    border-color: #555;
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   LEVEL-UP MOVES
+   ========================= */
+
+#pokemon-level-up-container {
+    width: min(900px, 100%);
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        2fr
+        1fr
+        1fr
+        1fr
+        1fr;
+
+    gap: 10px;
+
+    align-items: center;
+}
+
+
+/* Level-up heading */
+
+#pokemon-level-up-container h3 {
+    grid-column: 1 / -1;
+
+    text-align: center;
+
+    margin: 0 0 5px 0;
+
+    font-size: 20px;
+}
+
+
+/* Column headers */
+
+#pokemon-level-up-container .header {
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+}
+
+
+/* Move data */
+
+#pokemon-level-up-container .label {
+    text-align: center;
+}
+
+
+/* Move category icon */
+
+#pokemon-level-up-container .icon {
+    width: 32px;
+    height: 32px;
+
+    object-fit: contain;
+
+    display: block;
+    margin: auto;
+}
 /* =========================
    ERROR
    ========================= */
