@@ -254,8 +254,7 @@ export async function createMoves(pokemon){
     versionGroupings.clear();
     await createVersionButtons(pokemon,move);
     const versiona = document.querySelectorAll('input[name="versionRadio"]');
-    for(const versionz of versiona){
-        
+    for(const versionz of versiona){       
         versionz.addEventListener("change", ()=>{           
         displayLevelUpMoves(pokemon,lvlup);
     });
